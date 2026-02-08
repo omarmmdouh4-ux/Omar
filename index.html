@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لأجمل أسماء في الدنيا 🎁</title>
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #fff0f3;
+            --text: #590d22;
+        }
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffb3c1 0%, #fff0f3 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            overflow: hidden;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            text-align: center;
+            width: 85%;
+            max-width: 450px;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            border: 2px solid white;
+        }
+        .heart-icon { font-size: 50px; color: var(--primary); margin-bottom: 10px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        input {
+            width: 85%;
+            padding: 15px;
+            border: 2px solid #ffccd5;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            text-align: center;
+            outline: none;
+        }
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+            transition: 0.3s;
+        }
+        button:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255, 77, 109, 0.4); }
+        .hidden { display: none; }
+        img { width: 100%; border-radius: 20px; margin: 20px 0; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .romantic-text { font-size: 1.2rem; line-height: 1.8; color: #800f2f; font-weight: 500; }
+        .floating-heart { position: fixed; color: var(--primary); pointer-events: none; z-index: 1; animation: float 4s linear infinite; }
+        @keyframes float { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+<div class="card" id="loginCard">
+    <div class="heart-icon">💖</div>
+    <h2 style="margin-top:0">يا هلا بأسماء..</h2>
+    <p>في سر مستنيكي هنا.. اكتبي التاريخ بتاعنا</p>
+    <input type="password" id="passInput" placeholder="اكتبي الباسورد (17/1)">
+    <br>
+    <button onclick="checkPass()">افتحي قلبي ✨</button>
+    <p id="errorMsg" style="color: #ff4d6d; font-size: 14px; margin-top: 15px;"></p>
+</div>
+
+<div class="card hidden" id="contentCard">
+    <div class="heart-icon">💝</div>
+    <h1 style="color: var(--primary); margin-bottom: 5px;">أسماء.. حتة من قلبي</h1>
+    <img src="https://i.imgur.com/1ZQZ1ZP.jpg" alt="Gift Image">
+    <div class="romantic-text">
+        <p id="typewriter"></p>
+    </div>
+</div>
+
+<script>
+    const romanticMsg = "عارفة يا أسماء.. وجودك في حياتي هو اللي بيحلي الأيام. هدوءك ده سحر، وضحكتك بتنور دنيتي بجد. دي حاجة بسيطة بس حبيت أقولك إنك غالية أوي على قلبي، وبدعيلك دايمًا تفضلي مبسوطة وضحكتك مابتفارقش وشك.. كل مرة تشوفي الكلام ده، افتكري إنك مميزة جدًا بالنسبة لي. 🤍✨";
+
+    function checkPass() {
+        const pass = document.getElementById('passInput').value;
+        if (pass === "17/1") {
+            document.getElementById('loginCard').classList.add('hidden');
+            document.getElementById('contentCard').classList.remove('hidden');
+            startTypewriter();
+            setInterval(createHeart, 300);
+        } else {
+            document.getElementById('errorMsg').innerText = "الباسورد غلط يا قمر.. ركزي 😉🌸";
+        }
+    }
+
+    function startTypewriter() {
+        let i = 0;
+        const speed = 70;
+        function type() {
+            if (i < romanticMsg.length) {
+                document.getElementById("typewriter").innerHTML += romanticMsg.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            }
+        }
+        type();
+    }
+
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('floating-heart');
+        heart.innerHTML = ['❤️', '💖', '🌸', '✨', '💗'][Math.floor(Math.random() * 5)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = '100vh';
+        heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+    }
+</script>
+
+</body>
+</html>
